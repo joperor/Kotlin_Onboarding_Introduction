@@ -1,6 +1,6 @@
 package jetbrains.kotlin.course.mastermind.advanced
 
-fun getGameRules(wordLength: Int, maxAttemptsCount: Int, secretExample: String) =
+fun getGameRules(wordLength: Int, maxAttemptsCount: Int, secretExample: String): String =
     "Welcome to the game! $newLineSymbol" +
             newLineSymbol +
             "Two people play this game: one chooses a word (a sequence of letters), " +
@@ -13,6 +13,28 @@ fun getGameRules(wordLength: Int, maxAttemptsCount: Int, secretExample: String) 
             "For example, with $secretExample as the hidden word, the BCDF guess will " +
             "give 1 full match (C) and 1 partial match (B)."
 
+fun safeUserInput(wordLength: Int, alphabet: String): String {
+    var guess: String
+    do {
+        println("Please input your guess. It should be of length $wordLength, and each symbol should be from the alphabet $alphabet.")
+        guess = safeReadLine()
+    } while (!isCorrectInput(guess, wordLength, alphabet))
+    return guess
+}
+
+fun isCorrectInput(userInput: String, wordLength: Int, alphabet: String): Boolean {
+    if (userInput.length != wordLength) {
+        println("The length of your guess should be at least $wordLength characters! Try again!")
+        return false
+    }
+    //if (userInput.filter { it !in alphabet }.isNotEmpty()) {
+    if (userInput.any { it !in alphabet }) {
+        println("All symbols in your guess should be the $alphabet alphabet characters! Try again!")
+        return false
+    }
+    return true
+}
+
 fun countPartialMatches(secret: String, guess: String): Int {
     val matches = minOf(
         secret.filter { it in guess }.length,
@@ -24,9 +46,13 @@ fun countPartialMatches(secret: String, guess: String): Int {
 fun countExactMatches(secret: String, guess: String): Int =
     guess.filterIndexed { index, letter -> letter == secret[index] }.length
 
-fun generateSecret(): String = "ABCD"
+fun generateSecret(wordLength: Int, alphabet: String): String {
+    var random = ""
+    repeat(wordLength) { random += alphabet.random() }
+    return random
+}
 
-fun isComplete(secret: String, guess: String) = secret == guess
+fun isComplete(secret: String, guess: String): Boolean = secret == guess
 
 fun printRoundResults(secret: String, guess: String) {
     val fullMatches = countExactMatches(secret, guess)
@@ -34,16 +60,17 @@ fun printRoundResults(secret: String, guess: String) {
     println("Your guess has $fullMatches full matches and $partialMatches partial matches.")
 }
 
-fun isWon(complete: Boolean, attempts: Int, maxAttemptsCount: Int) = complete && attempts <= maxAttemptsCount
+fun isWon(complete: Boolean, attempts: Int, maxAttemptsCount: Int): Boolean = complete && attempts <= maxAttemptsCount
 
-fun isLost(complete: Boolean, attempts: Int, maxAttemptsCount: Int) = !complete && attempts > maxAttemptsCount
+fun isLost(complete: Boolean, attempts: Int, maxAttemptsCount: Int): Boolean = !complete && attempts > maxAttemptsCount
 
-fun playGame(secret: String, wordLength: Int, maxAttemptsCount: Int) {
+fun playGame(secret: String, wordLength: Int, maxAttemptsCount: Int, alphabet: String) {
     var complete: Boolean
     var attempts = 0
     do {
+        println(secret)
         println("Please input your guess. It should be of length $wordLength.")
-        val guess = safeReadLine()
+        val guess = safeUserInput(wordLength, alphabet)
         printRoundResults(secret, guess)
         complete = isComplete(secret, guess)
         attempts++
@@ -57,9 +84,10 @@ fun playGame(secret: String, wordLength: Int, maxAttemptsCount: Int) {
 }
 
 fun main() {
+    val alphabet = "ABCDEFGH"
     val wordLength = 4
     val maxAttemptsCount = 3
     val secretExample = "ACEB"
     println(getGameRules(wordLength, maxAttemptsCount, secretExample))
-    playGame(generateSecret(), wordLength, maxAttemptsCount)
+    playGame(generateSecret(wordLength, alphabet), wordLength, maxAttemptsCount, alphabet)
 }
