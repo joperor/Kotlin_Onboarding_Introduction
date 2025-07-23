@@ -20,4 +20,8 @@ files:
     visible: false
     learner_created: false
 status: Unchecked
-record: -1
+feedback:
+  message: "No tests have run. For more information, see <a href=\"https://plugins.jetbrains.com/plugin/10081-jetbrains-academy/docs/troubleshooting-guide.html#no_tests_have_run\"\
+    >the Troubleshooting guide</a>"
+  time: "Wed, 23 Jul 2025 15:00:55 UTC"
+record: 56

@@ -22,6 +22,12 @@ files:
   - name: test/MainClass.kt
     visible: false
     learner_created: false
+  - name: prueba/src/Main.java
+    visible: true
+    learner_created: true
 feedback_link: https://docs.google.com/forms/d/e/1FAIpQLScylICclQIi9_YDjO7iuyRITDLn0Qgzw_aLxKxiishKAbL0qg/viewform?usp=pp_url&entry.2103429047=Introduction/Almost+done/Null+safety
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Wed, 23 Jul 2025 22:38:18 UTC"
+record: 70

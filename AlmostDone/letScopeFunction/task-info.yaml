@@ -10,6 +10,9 @@ files:
   - name: src/main/kotlin/jetbrains/kotlin/course/almost/done/Images.kt
     visible: false
     learner_created: false
-status: Unchecked
-record: -1
+  - name: prueba/src/Main.java
+    visible: true
+    learner_created: true
+status: Solved
+record: 71
 post_submission_on_open: true
