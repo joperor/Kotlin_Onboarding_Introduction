@@ -22,5 +22,11 @@ files:
   - name: test/Tests.kt
     visible: false
     learner_created: false
-status: Unchecked
-record: -1
+  - name: prueba/src/Main.java
+    visible: true
+    learner_created: true
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Wed, 23 Jul 2025 22:55:17 UTC"
+record: 72
